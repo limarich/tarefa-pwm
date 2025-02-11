@@ -3,10 +3,12 @@
 #include "hardware/pwm.h"
 
 #define PWM_PIN 22
+#define LED_PIN 12
 
 const uint WRAP_PERIOD = 20000;
 const float CLK_DIV = 125.0;
 
+// configuração do pwm
 void pwm_setup()
 {
     gpio_set_function(PWM_PIN, GPIO_FUNC_PWM);
@@ -18,7 +20,27 @@ void pwm_setup()
 
     pwm_set_enabled(slice, true);
 }
+// configuração do led
+void led_setup()
+{
+    gpio_init(LED_PIN);
+    gpio_set_dir(LED_PIN, GPIO_OUT);
+    gpio_put(LED_PIN, false);
+}
 
+// função de teste do led -> espera-se que o led fique alternando entre aceso e apagado
+void led_test()
+{
+
+    for (int i = 0; i < 5; i++)
+    {
+        gpio_put(LED_PIN, 1); // Acende o LED
+        sleep_ms(500);
+        gpio_put(LED_PIN, 0); // Apaga o LED
+        sleep_ms(500);
+    }
+}
+// movimentação do servo motor de 0° a 180°
 void rotate_servo()
 {
     uint pulse = 500;
@@ -41,6 +63,7 @@ int main()
 {
     stdio_init_all();
     pwm_setup(); // configuração do PWM
+    led_setup(); // configuração do led
 
     while (true)
     {
@@ -50,7 +73,7 @@ int main()
         sleep_ms(5000);
         pwm_set_gpio_level(PWM_PIN, 500); // 0°
         sleep_ms(5000);
-        while (true)
+        while (true) // movimentação periódica do servo-motor
         {
             rotate_servo();
         }
