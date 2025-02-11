@@ -55,6 +55,9 @@ Oscilação da Intensidade:
 
 Durante os testes, o LED apresentou variações sutis no brilho enquanto o servo motor estava em operação. Isso pode ser explicado por pequenas interferências causadas pelo acionamento do PWM do servo e do LED simultaneamente.
 
+## Vídeo de demonstração
+https://youtu.be/ikjAmFpvWTg?si=nsqMlpNeC1VI-1Tn
+
 
 ## Autor
 **Richard Lima Ribeiro**
